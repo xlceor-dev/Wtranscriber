@@ -1,7 +1,7 @@
 "use client";
-
-import { METHODS } from "http";
 import { useState } from "react";
+import HeroSection from "./components/heroSection";
+import Header from "./components/header";
 
 //import Image from "next/image";
 
@@ -30,22 +30,15 @@ export default function Home() {
       console.error("Error llamando al backend:", e);
     }
   }
-  async function loadFile() {
-    const res = await fetch("/test.mp3");
-    const blob = await res.blob();
-    const file = new File([blob], "test.mp3", { type: blob.type });
-    return file;
-  }
-
+  
   async function callTranscript() {
-    const fileT = await loadFile()
-    if (!fileT) {
+    if (!file) {
       alert("No file selected");
       return;
     }
 
     const form = new FormData();
-    form.append("file", fileT);
+    form.append("file", file);
 
     const response = await fetch("/api/transcript", {
       method: "POST",
@@ -61,15 +54,54 @@ export default function Home() {
       setOutput(data.text);
     }
   }
+  function frst() {
+    return(
+      <div className="flex flex-col w-full h-full">
+            <div className="w-full h-full flex justify-center items-center">
+    <input
+        type="file"
+        id="input-file-upload"
+        style={{ display: 'none' }}
+        accept="audio/*"
+        onChange={(e) => setFile(e.target.files[0])}
+      />
+        <label
+        htmlFor="input-file-upload"
+        className={`file-upload flex flex-col justify-center items-center p-4 transition-colors duration-300 `}
+        onDrop={(e) => {
+          e.preventDefault();
+          if(e.dataTransfer.files && e.dataTransfer.files[0]) {
+              setFile(e.dataTransfer.files[0]);
+          }
+      }}
+      >
+        <button 
+            type="button" 
+            className='mt-4 bg-indigo-500 text-white py-2 px-4 rounded-lg'
+          >
+            Seleccionar Archivo
+            {file && <p>Archivo seleccionado: {file.name}</p>}
+          </button>
+          
+      </label>
+  
+  
+      <button className="w-1/4 bg-blue-600 p-5 rounded" onClick={callTranscript}>Upload file</button>
+    </div>
+        <div className="w-full h-full min-h-[45dvh] flex bg-indigo-900 rounded p-10">Output: {output}</div>
+
+      </div>
+
+    )
+  }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black ">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-gray-900">
-        <div className="w-full h-full flex justify-center items-center">
-          <button className="w-1/4 bg-blue-600 p-5 rounded" onClick={callTranscript}>Upload file</button>
-        </div>
-        <div className="w-full h-full min-h-[45dvh] flex bg-indigo-900 rounded p-10">Output: {output}</div>
-      </main>
+    <div className="flex flex-col min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black ">
+      <Header />
+      <div className="flex min-h-screen w-full items-center justify-between py-32 px-16">
+        <HeroSection />
+        <div className="w-6/7 h-full flex ">d</div>
+      </div>
     </div>
   );
 }
