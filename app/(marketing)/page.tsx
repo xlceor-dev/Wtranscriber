@@ -1,60 +1,58 @@
 "use client";
-import { useState } from "react";
-import HeroSection from "./components/heroSection";
-import Header from "./components/header";
-import Upload from "./components/upload";
+// import { useState } from "react";
+import HeroSection from "../components/heroSection";
+import Upload from "../components/upload";
 
 //import Image from "next/image";
 
 export default function Home() {
-  const [output, setOutput] = useState("");
-  const [file, setFile] = useState<File | null>(null);
 
+  // async function callChat() {
+  //   try {
+  //     const response = await fetch("/api/chat", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         messages: [{ role: "user", content: "Hola desde el cliente" }],
+  //       }),
+  //     });
 
-  async function callChat() {
-    try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          messages: [{ role: "user", content: "Hola desde el cliente" }],
-        }),
-      });
+  //     const data = await response.json();
+  //     console.log("Respuesta:", data.reply);
+  //     setOutput(data.reply)
 
-      const data = await response.json();
-      console.log("Respuesta:", data.reply);
-      setOutput(data.reply)
-
-    } catch(e){
-      console.error("Error llamando al backend:", e);
-    }
-  }
+  //   } catch(e){
+  //     console.error("Error llamando al backend:", e);
+  //   }
+  // }
   
-  async function callTranscript() {
-    if (!file) {
-      alert("No file selected");
-      return;
-    }
+  // async function callTranscript() {
+  //   if (!file) {
+  //     alert("No file selected");
+  //     return;
+  //   }
 
-    const form = new FormData();
-    form.append("file", file);
+  //   const form = new FormData();
+  //   form.append("file", file);
 
-    const response = await fetch("/api/transcript", {
-      method: "POST",
-      body: form,
-    });
+  //   const response = await fetch("/api/transcript", {
+  //     method: "POST",
+  //     body: form,
+  //   });
 
-    const data = await response.json();
-    console.log("Response: ", data);
+  //   const data = await response.json();
+  //   console.log("Response: ", data);
 
-    if (data.error) {
-      setOutput("Error: " + data.error);
-    } else {
-      setOutput(data.text);
-    }
-  }
+  //   if (data.error) {
+  //     setOutput("Error: " + data.error);
+  //   } else {
+  //     setOutput(data.text);
+  //   }
+  // }
+
+  
   // function frst() {
   //   return(
   //     <div className="flex flex-col w-full h-full">
@@ -97,12 +95,10 @@ export default function Home() {
   // }
 
   return (
-    <div className="flex flex-col min-h-screen items-center justify-center font-sans dark:bg-black ">
-      <Header />
+
       <div className="flex min-h-screen w-full items-center justify-between py-32 px-16">
         <HeroSection />
-        <Upload file={file} setFile={setFile} callTranscript={callTranscript}/>
+        <Upload/>
       </div>
-    </div>
   );
 }

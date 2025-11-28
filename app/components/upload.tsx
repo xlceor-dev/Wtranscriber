@@ -1,6 +1,20 @@
-import { File, CloudUpload } from "lucide-react";
+"use client"
 
-export default function Upload({file, setFile, callTranscript}:{file:File | null, setFile:(f:any)=>void, callTranscript:()=>void}){
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { File, CloudUpload } from "lucide-react";
+import { useTranscription } from "../hooks/useTranscription";
+
+
+export default function Upload(){
+    const [file, setFile] = useState<File | null>(null);
+    const {result, transcribe, loading} = useTranscription()
+
+    const router = useRouter();
+
+    if(result?.length != 0){
+        router.push("/editor")
+    }
     return(
         <div className="w-6/7 h-full flex  ">
               <div className="w-full h-full flex flex-col justify-center items-center">
@@ -48,9 +62,11 @@ export default function Upload({file, setFile, callTranscript}:{file:File | null
                 </div>
         
                 <div className="w-full h-full flex justify-center p-10">
-                    <button className="w-2/3 bg-blue-600 p-5 rounded text-white" onClick={callTranscript}>Upload file</button>
+                    <button className="w-2/3 bg-blue-600 p-5 rounded text-white" onClick={()=> {transcribe(file)}}>Upload file</button>
                 </div>
+                {loading && <div className="text-5xl" > Loading...</div>}
             </div>
+
         </div>
     )
 }
