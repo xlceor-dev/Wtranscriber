@@ -1,7 +1,7 @@
 import { useTranscriptionStore } from "../store/transcriptionStore";
 
 export function useTranscription() {
-  const { result, loading, setResult, setLoading } = useTranscriptionStore();
+  const { result, loading, setResult, setLoading, clear } = useTranscriptionStore();
 
   const transcribe = async (file: File | null) => {
     if (!file) return;
@@ -22,5 +22,5 @@ export function useTranscription() {
     setLoading(false);
   };
 
-  return { result, loading, transcribe };
+  return { result, loading, transcribe, clear };
 }

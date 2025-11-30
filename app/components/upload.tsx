@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { File, CloudUpload } from "lucide-react";
 import { useTranscription } from "../hooks/useTranscription";
@@ -11,14 +11,16 @@ export default function Upload(){
     const {result, transcribe, loading} = useTranscription()
 
     const router = useRouter();
+        useEffect(() => {
+            if(result && result.length > 0){
+                router.push("/editor");
+            }
+        }, [result, router]);
 
-    if(result?.length != 0){
-        router.push("/editor")
-    }
     return(
-        <div className="w-6/7 h-full flex  ">
-              <div className="w-full h-full flex flex-col justify-center items-center">
-                <div className="h-full w-4/5 p-20 bg-white  shadow-2xl/40 rounded-xl flex flex-col justify-center items-center">
+        <div className="w-6/7 h-full flex">
+              <div className="w-full h-full flex flex-col items-center">
+                <div className="h-full w-4/5 p-10 bg-white dark:bg-gray-800  shadow-2xl/40 rounded-xl flex flex-col justify-center items-center">
                     <div className=" p-4">
                         <input
                             type="file"
