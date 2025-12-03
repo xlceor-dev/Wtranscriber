@@ -34,7 +34,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ text: data.text });
 
-  } catch (e) {
+  } catch (e:any) {
     return NextResponse.json({ error: e.message }, { status: 400 });
   }
 }
