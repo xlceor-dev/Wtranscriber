@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
+  console.log("api called")
   try {
     const form = await req.formData();
     const file = form.get("file");
@@ -15,6 +16,8 @@ export async function POST(req: Request) {
     const fd = new FormData();
     fd.append("model", "gpt-4o-transcribe");
     fd.append("file", file);
+
+    console.log("Calling OpenAI")
 
     const response = await fetch("https://api.openai.com/v1/audio/transcriptions", {
       method: "POST",
@@ -31,7 +34,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ text: data.text });
 
-  } catch (e:any) {
+  } catch (e) {
     return NextResponse.json({ error: e.message }, { status: 400 });
   }
 }

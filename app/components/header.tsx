@@ -1,12 +1,12 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation"
-import { useTranscription } from "../hooks/useTranscription";
+import { useTranscriptionStore } from "../store/transcriptionStore";
 
 export default function Header(){
   const path = usePathname()
   const router = useRouter()
-  const { clear } = useTranscription()
+  const { clear } = useTranscriptionStore()
 
   const handleBack = () => {
     clear();

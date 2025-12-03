@@ -24,3 +24,18 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.editor-content:focus {
+  outline: none !important;
+}
+
+.editor-content .ProseMirror p.is-empty::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #9ca3af; /* gris clarito tipo Tailwind gray-400 */
+  pointer-events: none;
+  height: 0;
+}
+.editor-content *:focus {
+  outline: none !important;
+}

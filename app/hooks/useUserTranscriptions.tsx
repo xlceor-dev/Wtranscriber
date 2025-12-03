@@ -15,7 +15,7 @@
   
 //     const saveTranscription = async (text: string) => {
 //       await supabase.from("transcriptions").insert({ user_id: userId, text });
-//       fetchHistory(); // refresca el sidebar
+//       fetchHistory(); 
 //     };
   
 //     return { history, fetchHistory, saveTranscription };

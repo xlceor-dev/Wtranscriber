@@ -3,12 +3,12 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { File, CloudUpload } from "lucide-react";
-import { useTranscription } from "../hooks/useTranscription";
+import { useTranscriptionStore } from "../store/transcriptionStore";
 
 
 export default function Upload(){
     const [file, setFile] = useState<File | null>(null);
-    const {result, transcribe, loading} = useTranscription()
+    const {result, transcribe, loading} = useTranscriptionStore()
 
     const router = useRouter();
         useEffect(() => {
