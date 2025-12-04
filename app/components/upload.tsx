@@ -64,7 +64,7 @@ export default function Upload(){
                 </div>
         
                 <div className="w-full h-full flex justify-center p-10">
-                    <button className="w-2/3 bg-blue-600 p-5 rounded text-white" onClick={()=> {transcribe(file)}}>Upload file</button>
+                    <button className="w-2/3 bg-blue-600 p-5 rounded text-white" onClick={()=> {transcribe(file as File)}}>Upload file</button>
                 </div>
                 {loading && <div className="text-5xl" > Loading...</div>}
             </div>
