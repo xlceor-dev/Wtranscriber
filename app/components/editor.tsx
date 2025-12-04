@@ -58,7 +58,7 @@ export default function Editor({value, onChange } : { value:JSONContent, onChang
 
     const downloadTxtFile = () => {
         const text = editor?.getText()
-        const blob = new Blob([text], { type: 'text/plain' });
+        const blob = new Blob([text as BlobPart], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
       
         const a = document.createElement('a');
