@@ -8,6 +8,10 @@ export default function Header(){
   const router = useRouter()
   const { clear } = useTranscriptionStore()
 
+
+
+  //ssss
+
   const handleBack = () => {
     clear();
     router.push("/");
